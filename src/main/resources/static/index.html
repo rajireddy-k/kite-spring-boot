@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Market WebSocket Client</title>
+
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f5f5f5;
+          margin: 0;
+          padding: 24px;
+        }
+
+        .container {
+          max-width: 1000px;
+          margin: auto;
+          background: white;
+          padding: 24px;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+          margin-top: 0;
+        }
+
+        .status {
+          padding: 10px;
+          border-radius: 6px;
+          margin-bottom: 16px;
+          font-weight: bold;
+        }
+
+        .connected {
+          background: #d4edda;
+          color: #155724;
+        }
+
+        .disconnected {
+          background: #f8d7da;
+          color: #721c24;
+        }
+
+        button {
+          padding: 10px 16px;
+          margin-right: 8px;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+
+        .connect {
+          background: #28a745;
+          color: white;
+        }
+
+        .disconnect {
+          background: #dc3545;
+          color: white;
+        }
+
+        .clear {
+          background: #6c757d;
+          color: white;
+        }
+
+        #events {
+          margin-top: 20px;
+          background: #111;
+          color: #00ff66;
+          padding: 16px;
+          border-radius: 6px;
+          height: 500px;
+          overflow-y: auto;
+          font-family: monospace;
+          white-space: pre-wrap;
+        }
+
+        .event {
+          border-bottom: 1px solid #333;
+          padding: 10px 0;
+        }
+
+        .timestamp {
+          color: #aaa;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Market WebSocket Client</h1>
+
+    <div id="status" class="status disconnected">
+        Disconnected
+    </div>
+
+    <button class="connect" onclick="connectWebSocket()">
+        Connect
+    </button>
+
+    <button class="disconnect" onclick="disconnectWebSocket()">
+        Disconnect
+    </button>
+
+    <button class="clear" onclick="clearEvents()">
+        Clear Events
+    </button>
+
+    <div id="events"></div>
+</div>
+
+<script>
+    const WS_URL = "ws://localhost:8580/ws/market";
+
+    let socket = null;
+    let reconnectTimer = null;
+
+    const statusElement = document.getElementById("status");
+    const eventsElement = document.getElementById("events");
+
+    function updateStatus(message, connected) {
+      statusElement.textContent = message;
+
+      statusElement.className = connected
+        ? "status connected"
+        : "status disconnected";
+    }
+
+    function logEvent(event) {
+      const timestamp = new Date().toLocaleTimeString();
+
+      const eventElement = document.createElement("div");
+      eventElement.className = "event";
+
+      let data = event;
+
+      // Try to format JSON nicely
+      try {
+        const parsed = JSON.parse(event);
+        data = JSON.stringify(parsed, null, 2);
+      } catch (e) {
+        // Event is not JSON; display as-is
+      }
+
+      eventElement.innerHTML =
+        `<div class="timestamp">[${timestamp}]</div>` +
+        `<pre>${escapeHtml(data)}</pre>`;
+
+  eventsElement.appendChild(eventElement);
+
+  // Automatically scroll to latest event
+  eventsElement.scrollTop = eventsElement.scrollHeight;
+
+  }
+
+  function escapeHtml(value) {
+  const div = document.createElement("div");
+  div.textContent = value;
+  return div.innerHTML;
+  }
+
+  function connectWebSocket() {
+
+  if (
+  socket &&
+  (socket.readyState === WebSocket.OPEN ||
+  socket.readyState === WebSocket.CONNECTING)
+  ) {
+  return;
+  }
+
+  updateStatus("Connecting...", false);
+
+  socket = new WebSocket(WS_URL);
+
+  socket.onopen = function () {
+    console.log("WebSocket connected");
+
+    updateStatus("Connected", true);
+
+    logEvent("WebSocket connection established");
+  };
+
+  socket.onmessage = function (event) {
+    console.log("Received:", event.data);
+
+    // This is where backend market events arrive
+    logEvent(event.data);
+  };
+
+  socket.onerror = function (error) {
+    console.error("WebSocket error:", error);
+
+    updateStatus("Connection Error", false);
+
+    logEvent("WebSocket error");
+  };
+
+  socket.onclose = function (event) {
+    console.log(
+      "WebSocket disconnected:",
+      event.code,
+      event.reason
+    );
+
+    updateStatus("Disconnected", false);
+
+    logEvent(
+      `WebSocket disconnected. Code: ${event.code}`
+    );
+
+    // Automatically reconnect after 3 seconds
+    reconnectTimer = setTimeout(() => {
+      console.log("Attempting WebSocket reconnect...");
+      connectWebSocket();
+    }, 3000);
+  };
+
+  }
+
+  function disconnectWebSocket() {
+  if (reconnectTimer) {
+  clearTimeout(reconnectTimer);
+  reconnectTimer = null;
+  }
+
+  if (socket) {
+    socket.close();
+    socket = null;
+  }
+
+  updateStatus("Disconnected", false);
+
+  logEvent("WebSocket manually disconnected");
+  }
+
+  function clearEvents() {
+  eventsElement.innerHTML = "";
+  }
+
+  // Automatically connect when page loads
+  window.addEventListener("load", connectWebSocket); </script>
+
+</body>
+</html>

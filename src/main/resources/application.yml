@@ -1,0 +1,74 @@
+server:
+  port: 8580
+
+spring:
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/kite?useSSL=false&serverTimezone=Asia/Kolkata}
+    username: root
+    password: admin
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 60000
+      validation-timeout: 5000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+jakarta:
+  persistence:
+    jdbc:
+      url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/kite?useSSL=false&serverTimezone=Asia/Kolkata}
+kite:
+  api-key: ${KITE_API_KEY:fec3q7clx1ma6n4m}
+  api-secret: ${KITE_API_SECRET:etqkmbj284bo8ohkwr49csjaabuurd0s}
+  redirect-url: ${KITE_REDIRECT_URL:http://localhost:8580/api/kite/callback}
+  websocket-mode: quote
+
+tradingview:
+  webhook-secret: ${TRADINGVIEW_WEBHOOK_SECRET:20231124}
+  place-order: ${TRADINGVIEW_PLACE_ORDER:false}
+
+logging:
+  file:
+    name: logs/application.log
+
+  level:
+    root: INFO
+    com.example.kite.service: DEBUG
+
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"
+
+  logback:
+    rollingpolicy:
+      file-name-pattern: "logs/application-%d{yyyy-MM-dd}.%i.log.gz"
+      max-file-size: 10MB
+      max-history: 30
+      total-size-cap: 1GB
+
+trading:
+  strategy:
+    ema-fast-period: 20
+    ema-slow-period: 50
+    atr-period: 14
+    rsi-period: 14
+    volume-sma-period: 20
+    minimum-atr: 0.50
+    buy-rsi-threshold: 55.0
+    sell-rsi-threshold: 45.0
+    stop-loss-atr-multiplier: 1.5
+    risk-reward-ratio: 2.0
+    reset-vwap-on-session-change: true
+  cron:
+    job:
+      schedule-time: ${CRON_JOB_SCHEDULE_TIME:"0 30 9 * * *"}
