@@ -1,32 +1,44 @@
 server:
-  port: 8580
+  port: 8080
 
+#spring:
+ # datasource:
+  #  url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/kite?useSSL=false&serverTimezone=Asia/Kolkata}
+   # username: root
+    #password: admin
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #hikari:
+     # maximum-pool-size: 10
+      #minimum-idle: 2
+      #connection-timeout: 60000
+      #validation-timeout: 5000
 spring:
   datasource:
-    url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/kite?useSSL=false&serverTimezone=Asia/Kolkata}
-    username: root
-    password: admin
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 2
-      connection-timeout: 60000
-      validation-timeout: 5000
-
+    url: jdbc:h2:file:~/data/kite
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
-    open-in-view: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
 
+jakarta:
+  persistence:
+    jdbc:
+      url: jdbc:h2:file:~/data/kite
 
   data:
     redis:
       host: ${REDIS_HOST:127.0.0.1}
       port: ${REDIS_PORT:6379}
-jakarta:
-  persistence:
-    jdbc:
-      url: ${MYSQL_URL:jdbc:mysql://127.0.0.1:3306/kite?useSSL=false&serverTimezone=Asia/Kolkata}
+
 kite:
   api-key: ${KITE_API_KEY:fec3q7clx1ma6n4m}
   api-secret: ${KITE_API_SECRET:etqkmbj284bo8ohkwr49csjaabuurd0s}

@@ -11,24 +11,29 @@ import java.io.File;
 public class AlertSoundListener {
 
     public static void beep(SignalSourceType source) {
-        try {
-            String filePath = soundFilePath(source);
-            File soundFile = new File(filePath);
-            //File soundFile = new File("beep.mp3");
-            try (AudioInputStream audioIn =
-                         AudioSystem.getAudioInputStream(soundFile)) {
+        String environment = System.getProperty("env");
+        if("local".equals(environment)) {
+            try {
+                String filePath = soundFilePath(source);
+                File soundFile = new File(filePath);
+                //File soundFile = new File("beep.mp3");
+                try (AudioInputStream audioIn =
+                             AudioSystem.getAudioInputStream(soundFile)) {
 
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioIn);
-                clip.start();
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(audioIn);
+                    clip.start();
 
-                // Wait until sound finishes
-                Thread.sleep(clip.getMicrosecondLength() / 1000);
+                    // Wait until sound finishes
+                    Thread.sleep(clip.getMicrosecondLength() / 1000);
 
-                clip.close();
+                    clip.close();
+                }
+            } catch (Exception e) {
+                log.error("Failed load audio clip");
             }
-        } catch (Exception e) {
-            log.error("Failed load audio clip");
+        } else {
+            log.info("audio clip disabled for remote");
         }
     }
 
