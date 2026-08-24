@@ -100,6 +100,12 @@
         Disconnected
     </div>
 
+    <button id="enableSound">Enable Notifications 🔔</button>
+
+    <audio id="notificationSound" preload="auto">
+        <source src="Ring01.wav" type="audio/wav">
+    </audio>
+
     <button class="connect" onclick="connectWebSocket()">
         Connect
     </button>
@@ -116,7 +122,25 @@
 </div>
 
 <script>
-    const WS_URL = "ws://localhost:8580/ws/market";
+    const WS_URL = "ws://3.6.146.92:8080/ws/market";
+    const audio = document.getElementById("notificationSound");
+    const button = document.getElementById("enableSound");
+    let soundEnabled = false;
+    // User interaction unlocks audio playback
+    button.addEventListener("click", async () => {
+        try {
+            // Play once and immediately pause
+            await audio.play();
+            audio.pause();
+            audio.currentTime = 0;
+            soundEnabled = true;
+            button.textContent = "Sound Enabled ✓";
+            button.disabled = true;
+            console.log("Notification sound enabled");
+        } catch (error) {
+            console.error("Could not enable sound:", error);
+        }
+    });
 
     let socket = null;
     let reconnectTimer = null;
@@ -187,11 +211,24 @@
     logEvent("WebSocket connection established");
   };
 
-  socket.onmessage = function (event) {
+  socket.onmessage = async function (event) {
     console.log("Received:", event.data);
 
     // This is where backend market events arrive
     logEvent(event.data);
+     // Play notification sound
+    if (soundEnabled) {
+        try {
+            audio.currentTime = 0;
+            await audio.play();
+            console.log("Notification sound played");
+        } catch (error) {
+            console.error(
+                "Sound playback failed:",
+                error
+            );
+        }
+    }
   };
 
   socket.onerror = function (error) {
