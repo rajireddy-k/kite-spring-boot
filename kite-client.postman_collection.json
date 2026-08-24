@@ -1,0 +1,635 @@
+{
+  "info": {
+    "_postman_id": "f7b43d34-2025-4c38-9cc0-dbf2e1cd372d",
+    "name": "kite-client",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "34230110"
+  },
+  "item": [
+    {
+      "name": "subscribe-new-symbol",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/market/subscribe/NSE/LALITHAA",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "market",
+            "subscribe",
+            "NSE",
+            "LALITHAA"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "webhook/tradingview-json",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"source\": \"TradingView\",\r\n    \"event\": \"TradingViewSignal\",\r\n    \"action\": \"BUY\",\r\n    \"symbol\": \"NSE:RELIANCE\",\r\n    \"exchange\": \"NSE\",\r\n    \"timeframe\": \"15\",\r\n    \"price\": \"1425.50\",\r\n    \"quantity\": 1,\r\n    \"timestamp\": \"1754022600000\",\r\n    \"orderType\":\"LIMIT\",\r\n    \"product\":\"MIS\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/webhook/tradingview/webhook?webhook_token=20231124",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "webhook",
+            "tradingview",
+            "webhook"
+          ],
+          "query": [
+            {
+              "key": "webhook_token",
+              "value": "20231124"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "https://api.kite.trade/margins/orders",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Kite-Version",
+            "value": "3",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "token fec3q7clx1ma6n4m:vC3E8G7jE1exLKZ7y3sbFH5AOUZiOIth",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n    {\r\n        \"exchange\": \"NSE\",\r\n        \"tradingsymbol\": \"DIXON\",\r\n        \"transaction_type\": \"BUY\",\r\n        \"variety\": \"regular\",\r\n        \"product\": \"MIS\",\r\n        \"order_type\": \"LIMIT\",\r\n        \"quantity\": 1,\r\n        \"price\": 13988,\r\n        \"trigger_price\": 0\r\n    }\r\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.kite.trade/margins/orders",
+          "protocol": "https",
+          "host": [
+            "api",
+            "kite",
+            "trade"
+          ],
+          "path": [
+            "margins",
+            "orders"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "view-configs-params",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://3.6.146.92:8080/api/config/view/configs",
+          "protocol": "http",
+          "host": [
+            "3",
+            "6",
+            "146",
+            "92"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "config",
+            "view",
+            "configs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "trading-offline",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8580/api/trading/offline/:exchange/:symbol",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8580",
+          "path": [
+            "api",
+            "trading",
+            "offline",
+            ":exchange",
+            ":symbol"
+          ],
+          "variable": [
+            {
+              "key": "exchange",
+              "value": "NSE"
+            },
+            {
+              "key": "symbol",
+              "value": "TCS"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "market-histarical-data",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/market/histarical/:exchange/:symbol",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "market",
+            "histarical",
+            ":exchange",
+            ":symbol"
+          ],
+          "variable": [
+            {
+              "key": "exchange",
+              "value": "NSE"
+            },
+            {
+              "key": "symbol",
+              "value": "TCS"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "market-trade-margin",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/market/margin/:exchange/:symbol?transactiontype=BUY&quantity=1&price=3360",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "market",
+            "margin",
+            ":exchange",
+            ":symbol"
+          ],
+          "query": [
+            {
+              "key": "transactiontype",
+              "value": "BUY"
+            },
+            {
+              "key": "quantity",
+              "value": "1"
+            },
+            {
+              "key": "price",
+              "value": "3360"
+            }
+          ],
+          "variable": [
+            {
+              "key": "exchange",
+              "value": "NSE"
+            },
+            {
+              "key": "symbol",
+              "value": "CPPLUS"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "check-user-margin",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/market/user/margin",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "market",
+            "user",
+            "margin"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "market-subscribe-bulk",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"symbols\": [       \r\n        \"TCS\",              \r\n        \"GVT&D\",        \r\n        \"BAJFINANCE\",\r\n        \"TRENT\",        \r\n        \"BEL\",\r\n        \"BHEL\",\r\n        \"CGPOWER\",       \r\n        \"KAYNES\",\r\n        \"DIXON\"\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/market/subscribe/bulk/NSE",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "market",
+            "subscribe",
+            "bulk",
+            "NSE"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "config/addWishList",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"BUY\": [\r\n        \"GVT&D\"       \r\n    ],\r\n    \"SELL\": [        \r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/config/addWatchList",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "config",
+            "addWatchList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "set-configParams",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"PLACE_LIMIT_ORDER\": false,\r\n    \"ENABLE_TO_PLACE_SELL_ORDER\": false,\r\n    \"ENABLE_TO_PLACE_BUY_ORDER\": false,\r\n    \"INTRADAY_MARGIN_THRESHOLD\": 0.99,\r\n    \"PLACE_DELIVERY_ORDER\": false,\r\n    \"PLACE_INTRADAY_ORDER\": true,\r\n    \"MIN_ATR\": 5.0,\r\n    \"BACKOUT_TIME_PERIOD\": 60,\r\n    \"LOOKBACK_CANDLES\": 10,\r\n    \"TIME_INTERVAL\": \"minute\",\r\n    \"ENABLE_MULTI_CANDLE_SIGNAL\": false,\r\n    \"ENABLE_SINGLE_CANDLE_SIGNAL\": false,\r\n    \"ENABLE_EMA_CROSSOVER_IND\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/config/setParams",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "config",
+            "setParams"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "webhook/tradingview/webhook-plaintext",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "Postman ( symbol: GVT&D , exchange: NSE, price: 4280 , isBuy: 1, isSell: 0, high: 4306, low:4271, open: 4298, volume: 3 )",
+          "options": {
+            "raw": {
+              "language": "text"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/webhook/tradingview/webhook?webhook_token=20231124",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "webhook",
+            "tradingview",
+            "webhook"
+          ],
+          "query": [
+            {
+              "key": "webhook_token",
+              "value": "20231124"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE-market-unsubscribe-bulk",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"symbols\": [       \r\n        \"TCS\",\r\n        \"BDL\",\r\n        \"RELIANCE\",\r\n        \"ADANIGREEN\",        \r\n        \"GVT&D\",        \r\n        \"BAJFINANCE\",\r\n        \"TRENT\",        \r\n        \"BEL\",\r\n        \"BHEL\",\r\n        \"CGPOWER\",       \r\n        \"KAYNES\",\r\n        \"DIXON\"\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://3.6.146.92:8080/api/market/unsubscribe/bulk/NSE",
+          "protocol": "http",
+          "host": [
+            "3",
+            "6",
+            "146",
+            "92"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "market",
+            "unsubscribe",
+            "bulk",
+            "NSE"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "topTrendingStocks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://3.6.146.92:8080/api/market/topTrendingStocks",
+          "protocol": "http",
+          "host": [
+            "3",
+            "6",
+            "146",
+            "92"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "market",
+            "topTrendingStocks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "offline-trading",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8580/api/trading/offline/:exchange/:symbol",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8580",
+          "path": [
+            "api",
+            "trading",
+            "offline",
+            ":exchange",
+            ":symbol"
+          ],
+          "variable": [
+            {
+              "key": "exchange",
+              "value": "NSE"
+            },
+            {
+              "key": "symbol",
+              "value": "HAL"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "view-config-watchList",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/config/watchList/:action",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "config",
+            "watchList",
+            ":action"
+          ],
+          "variable": [
+            {
+              "key": "action",
+              "value": "BUY"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "config/removeWishList",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"BUY\": [\r\n        \"CPPLUS\",\r\n        \"GVT&D\"      \r\n    ],\r\n    \"SELL\": [        \r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/config/removeWatchList",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "config",
+            "removeWatchList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "market/tradeList",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/market/tradeList",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "market",
+            "tradeList"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-market-orderList for the day",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://sharper-strife-good.ngrok-free.dev/api/market/orderList",
+          "protocol": "https",
+          "host": [
+            "sharper-strife-good",
+            "ngrok-free",
+            "dev"
+          ],
+          "path": [
+            "api",
+            "market",
+            "orderList"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
